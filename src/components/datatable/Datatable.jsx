@@ -1,9 +1,35 @@
 import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatablesource";
+// import { userColumns } from "../../datatablesource";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import axios from "axios";
+
+
+export const userColumns = [
+  { field: "_id", headerName: "ID", width: 250 },
+  {field: "name", headerName: "Name", width: 230,
+    renderCell: (params) => {
+      return (
+        <div className="cellWithImg">
+          {params.row.name}
+        </div>
+      );
+    },
+  },
+  {
+    field: "email",
+    headerName: "Email",
+    width: 230,
+  },
+  {
+    field: "phoneNumber",
+    headerName: "Phone Number",
+    width: 230,
+  },
+];
+
+
 
 const Datatable = () => {
   const [data, setData] = useState([]);
@@ -17,8 +43,8 @@ const Datatable = () => {
         const  status=await axios.get(`${process.env.REACT_APP_API}/user`);
         if(status.status===200)
           {
-            console.log(status);
-            // setData(status.data)
+            // console.log(status.data);
+            setData(status.data)
           }
       }
       catch(err)
@@ -27,8 +53,8 @@ const Datatable = () => {
       }
     }
     getUsers();
-    console.log(data);
-  })
+    // console.log(data);
+  },[])
 
   const actionColumn = [
     {
@@ -66,7 +92,8 @@ const Datatable = () => {
         columns={userColumns.concat(actionColumn)}
         pageSize={10}
         rowsPerPageOptions={[10]}
-        checkboxSelection
+        getRowId={(row) => row._id} 
+        // checkboxSelection
       />
     </div>
   );
