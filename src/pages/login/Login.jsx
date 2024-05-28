@@ -10,6 +10,7 @@ function Login() {
     email: "",
     password: "",
   });
+  const [disable,setDisable]=useState(false);
   const navigate = useNavigate();
   const onChangeFunction = (event) => {
     if (event.target.id === "InputEmail") {
@@ -20,6 +21,7 @@ function Login() {
   };
   const LoginFunction = async (event) => {
     event.preventDefault();
+    setDisable(true);
     try {
       const status = await axios.post(`${process.env.REACT_APP_API}/login`, {
         email: user.email,
@@ -32,8 +34,9 @@ function Login() {
         navigate("/");
       }
     } catch (err) {
-      console.log(err);
+      console.log(err.response.data.message);
     }
+    setDisable(false);
   };
 
   return (
@@ -50,6 +53,7 @@ function Login() {
             value={user.email}
             onChange={onChangeFunction}
             required={true}
+            disabled={disable}
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -65,6 +69,7 @@ function Login() {
             value={user.password}
             onChange={onChangeFunction}
             required={true}
+            disabled={disable}
           />
         </div>
         <button type="submit" className={`btn btn-primary ${stlyes.btn_color}`}>
