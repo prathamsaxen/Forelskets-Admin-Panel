@@ -2,14 +2,33 @@ import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { userColumns, userRows } from "../../datatablesource";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 const Datatable = () => {
-  const [data, setData] = useState(userRows);
+  const [data, setData] = useState([]);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
+  useEffect(()=>{
+    const getUsers=async()=>{
+      try{
+        const  status=await axios.get(`${process.env.REACT_APP_API}/user`);
+        if(status.status===200)
+          {
+            console.log(status);
+            // setData(status.data)
+          }
+      }
+      catch(err)
+      {
+        console.log(err);
+      }
+    }
+    getUsers();
+    console.log(data);
+  })
 
   const actionColumn = [
     {
@@ -36,9 +55,9 @@ const Datatable = () => {
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
+        Active Users
         <Link to="/users/new" className="link">
-          Add New
+          Add New User
         </Link>
       </div>
       <DataGrid

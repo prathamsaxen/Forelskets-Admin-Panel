@@ -10,6 +10,7 @@ import { useContext,useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { useState } from "react";
 import AuthenticationContext from "./context/AuthenticationContext";
+import Settings from "./pages/settings/settings";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -30,6 +31,7 @@ function App() {
         login?
         <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/users" element={<List />} />
         <Route path="/users/:userId" element={<Single />} />
         <Route path="/users/new" element={<New inputs={userInputs} title="Add New User" />}/>

@@ -9,7 +9,7 @@ const Featured = () => {
   return (
     <div className="featured">
       <div className="top">
-        <h1 className="title">Total Revenue</h1>
+        <h1 className="title">Monthly Active Users (MAU)</h1>
         <MoreVertIcon fontSize="small" />
       </div>
       <div className="bottom">

@@ -5,7 +5,7 @@ import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import StoreIcon from "@mui/icons-material/Store";
 // import InsertChartIcon from "@mui/icons-material/InsertChart";
-// import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 // import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 // import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
@@ -18,14 +18,14 @@ import { useNavigate } from "react-router-dom";
 import AuthenticationContext from "../../context/AuthenticationContext";
 
 const Sidebar = () => {
-  const {setLogin}=useContext(AuthenticationContext);
+  const { setLogin } = useContext(AuthenticationContext);
   const { dispatch } = useContext(DarkModeContext);
-  const navigate=useNavigate();
-  const handleLogout=()=>{
+  const navigate = useNavigate();
+  const handleLogout = () => {
     localStorage.removeItem("user");
     setLogin(false);
     navigate("/");
-  }
+  };
   return (
     <div className="sidebar">
       <div className="top">
@@ -41,6 +41,12 @@ const Sidebar = () => {
             <li>
               <DashboardIcon className="icon" />
               <span>Dashboard</span>
+            </li>
+          </Link>
+          <Link to="/settings" style={{ textDecoration: "none" }}>
+            <li>
+              <SettingsApplicationsIcon className="icon" />
+              <span>Settings</span>
             </li>
           </Link>
           <p className="title">Admin Panel</p>
@@ -97,7 +103,7 @@ const Sidebar = () => {
           </li>
         </ul>
       </div>
-      <div className="bottom">
+      {/* <div className="bottom">
         <div
           className="colorOption"
           onClick={() => dispatch({ type: "LIGHT" })}
@@ -106,7 +112,7 @@ const Sidebar = () => {
           className="colorOption"
           onClick={() => dispatch({ type: "DARK" })}
         ></div>
-      </div>
+      </div> */}
     </div>
   );
 };
