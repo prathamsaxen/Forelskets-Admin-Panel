@@ -11,6 +11,8 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 // import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSystemDaydreamOutlined";
 // import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import CollectionsIcon from '@mui/icons-material/Collections';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { Link } from "react-router-dom";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
@@ -49,6 +51,18 @@ const Sidebar = () => {
               <span>Settings</span>
             </li>
           </Link>
+          <Link to="/gallery" style={{ textDecoration: "none" }}>
+            <li>
+              <CollectionsIcon className="icon" />
+              <span>Gallery</span>
+            </li>
+          </Link>
+          <Link to="/team" style={{ textDecoration: "none" }}>
+            <li>
+              <Diversity3Icon className="icon" />
+              <span>Team</span>
+            </li>
+          </Link>
           <p className="title">Admin Panel</p>
           <Link to="/users" style={{ textDecoration: "none" }}>
             <li>
@@ -56,6 +70,7 @@ const Sidebar = () => {
               <span>Users</span>
             </li>
           </Link>
+         
           {/* <Link to="/products" style={{ textDecoration: "none" }}>
             <li>
               <StoreIcon className="icon" />
