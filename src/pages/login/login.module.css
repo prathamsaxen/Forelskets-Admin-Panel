@@ -1,0 +1,33 @@
+.login{
+    background-color: #005993;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+form{
+    /* border: 2px solid black; */
+    width: 400px;
+    background-color: white;
+    border-radius: 6px;
+    padding: 20px;
+}
+.formDiv{
+    margin-bottom: 15px;
+}
+.formDiv label{
+    margin-bottom: 5px;
+}
+.loginFooter{
+    /* border: 2px solid red; */
+    position: absolute;
+    bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;;
+    font-family: Poppins;
+}
+.btn_color{
+    background-color: #005993;
+}
