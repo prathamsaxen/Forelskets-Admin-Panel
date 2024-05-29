@@ -3,13 +3,13 @@ export const userInputs = [
       id: 1,
       label: "First Name",
       type: "text",
-      placeholder: "john_doe",
+      placeholder: "John",
     },
     {
       id: 2,
       label: "Last Name",
       type: "text",
-      placeholder: "John Doe",
+      placeholder: "Doe",
     },
     {
       id: 3,
@@ -30,15 +30,9 @@ export const userInputs = [
     },
     {
       id: 6,
-      label: "Address",
-      type: "text",
-      placeholder: "Elton St. 216 NewYork",
-    },
-    {
-      id: 7,
-      label: "Country",
-      type: "text",
-      placeholder: "USA",
+      label: "Confirm Password",
+      type: "password",
+      // placeholder: "USA",
     },
   ];
   

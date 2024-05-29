@@ -61,11 +61,12 @@
               width: 100%;
               padding: 5px;
               border: none;
+              outline: none;
               border-bottom: 1px solid gray;
             }
           }
 
-          button {
+          input[type='submit'] {
             width: 150px;
             padding: 10px;
             border: none;
