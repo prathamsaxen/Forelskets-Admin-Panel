@@ -2,6 +2,7 @@ import React from 'react';
 import "./Contact.scss";
 import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
+import ContactAccordion from '../../components/ContactAccordion/ContactAccordion';
 
 function Contact() {
   return (
@@ -9,7 +10,9 @@ function Contact() {
     <Sidebar />
     <div className="homeContainer">
       <Navbar />
-      <h1>Contact</h1>
+      <div className='ContactWrapper'>
+        <ContactAccordion/>
+      </div>
     </div>
   </div>
   )

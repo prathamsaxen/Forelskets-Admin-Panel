@@ -3,7 +3,9 @@
   
     .homeContainer {
       flex: 6;
-  
+      .ContactWrapper{
+        border: 2px solid red;
+      }
       .widgets,
       .charts {
         display: flex;
