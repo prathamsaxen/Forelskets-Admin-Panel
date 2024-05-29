@@ -77,22 +77,24 @@ const New = ({ inputs, title }) => {
           if(status.status===200)
             {
               toast.success("User Registered Successfully!");
+              setData({
+                firstName: "",
+                lastName: "",
+                email: "",
+                phoneNumber: "",
+                password: "",
+                confirmPassword: "",
+              })
             }
         }
         catch(err)
         {
-          toast.error(err.message);
+          setFormDisable(false);
+          toast.error(err.response.data.message);
+          console.log(err);
         }
       }
     setFormDisable(false);
-    setData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phoneNumber: "",
-      password: "",
-      confirmPassword: "",
-    })
   };
   return (
     <div className="new">
