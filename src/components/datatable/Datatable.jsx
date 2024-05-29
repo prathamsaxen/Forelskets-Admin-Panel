@@ -53,7 +53,6 @@ const Datatable = () => {
       }
     }
     getUsers();
-    // console.log(data);
   },[])
 
   const actionColumn = [
