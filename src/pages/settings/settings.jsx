@@ -8,7 +8,11 @@ const Settings = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <h1>Settings</h1>
+        <div className="homeForm">
+          <form action="">
+            
+          </form>
+        </div>
       </div>
     </div>
   );

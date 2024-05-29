@@ -3,7 +3,14 @@
   
     .homeContainer {
       flex: 6;
-  
+      .teamWrapper{
+        // border: 2px solid red;
+        display: flex;
+        gap:15px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        justify-content: center;
+      }
       .widgets,
       .charts {
         display: flex;

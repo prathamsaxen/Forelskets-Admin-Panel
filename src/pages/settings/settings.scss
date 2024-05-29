@@ -3,7 +3,19 @@
   
     .homeContainer {
       flex: 6;
-  
+      .homeForm{
+        height: 92%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        form{
+          border: 2px solid #6439ff;
+          width: 600px;
+          height: 600px;
+          background: transparent;
+        }
+      }
+
       .widgets,
       .charts {
         display: flex;
