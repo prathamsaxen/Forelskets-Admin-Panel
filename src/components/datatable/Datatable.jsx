@@ -40,7 +40,7 @@ const Datatable = () => {
   useEffect(()=>{
     const getUsers=async()=>{
       try{
-        const  status=await axios.get(`${process.env.REACT_APP_API}/user`);
+        const  status=await axios.get(`${process.env.REACT_APP_API}api/user`);
         if(status.status===200)
           {
             // console.log(status.data);

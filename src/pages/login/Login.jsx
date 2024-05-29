@@ -23,7 +23,7 @@ function Login() {
     event.preventDefault();
     setDisable(true);
     try {
-      const status = await axios.post(`${process.env.REACT_APP_API}/login`, {
+      const status = await axios.post(`${process.env.REACT_APP_API}api/login`, {
         email: user.email,
         password: user.password,
       });
