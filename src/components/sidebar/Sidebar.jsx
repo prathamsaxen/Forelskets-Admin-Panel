@@ -1,9 +1,9 @@
 import "./sidebar.scss";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
-import StoreIcon from "@mui/icons-material/Store";
+// import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+// import CreditCardIcon from "@mui/icons-material/CreditCard";
+// import StoreIcon from "@mui/icons-material/Store";
 // import InsertChartIcon from "@mui/icons-material/InsertChart";
 import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -13,15 +13,17 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import CollectionsIcon from '@mui/icons-material/Collections';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import FeedIcon from '@mui/icons-material/Feed';
+import ContactsIcon from '@mui/icons-material/Contacts';
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
+// import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthenticationContext from "../../context/AuthenticationContext";
 
 const Sidebar = () => {
   const { setLogin } = useContext(AuthenticationContext);
-  const { dispatch } = useContext(DarkModeContext);
+  // const { dispatch } = useContext(DarkModeContext);
   const navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -61,6 +63,18 @@ const Sidebar = () => {
             <li>
               <Diversity3Icon className="icon" />
               <span>Team</span>
+            </li>
+          </Link>
+          <Link to="/news" style={{ textDecoration: "none" }}>
+            <li>
+              <FeedIcon className="icon" />
+              <span>News</span>
+            </li>
+          </Link>
+          <Link to="/contacts" style={{ textDecoration: "none" }}>
+            <li>
+              <ContactsIcon className="icon" />
+              <span>Contacts</span>
             </li>
           </Link>
           <p className="title">Admin Panel</p>

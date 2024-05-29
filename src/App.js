@@ -11,6 +11,7 @@ import { DarkModeContext } from "./context/darkModeContext";
 import { useState } from "react";
 import AuthenticationContext from "./context/AuthenticationContext";
 import Settings from "./pages/settings/settings";
+import Gallery from "./pages/gallery/Gallery";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -32,6 +33,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/gallery" element={<Gallery />} />
         <Route path="/users" element={<List />} />
         <Route path="/users/:userId" element={<Single />} />
         <Route path="/users/new" element={<New inputs={userInputs} title="Add New User" />}/>

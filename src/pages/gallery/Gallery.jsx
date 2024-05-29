@@ -1,17 +1,18 @@
+import React from "react";
+import "./Gallery.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import "./settings.scss";
 
-const Settings = () => {
+function Gallery() {
   return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <h1>Settings</h1>
+        <h1>Gallery</h1>
       </div>
     </div>
   );
-};
+}
 
-export default Settings;
+export default Gallery;
