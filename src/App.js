@@ -13,6 +13,7 @@ import AuthenticationContext from "./context/AuthenticationContext";
 import Settings from "./pages/settings/settings";
 import Gallery from "./pages/gallery/Gallery";
 import Team from "./pages/team/Team";
+import News from "./pages/news/News";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -36,6 +37,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/team" element={<Team />} />
+        <Route path='/news' element={<News />} />
         <Route path="/users" element={<List />} />
         <Route path="/users/:userId" element={<Single />} />
         <Route path="/users/new" element={<New inputs={userInputs} title="Add New User" />}/>
