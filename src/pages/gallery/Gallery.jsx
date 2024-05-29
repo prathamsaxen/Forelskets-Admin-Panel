@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Gallery.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
+import axios from "axios";
 
 function Gallery() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const getUsers = async () => {
+      try {
+        const status = await axios.get(
+          `${process.env.REACT_APP_API}api/getgallery`
+        );
+        if (status.status === 200) {
+          // console.log(status.data);
+          setData(status.data);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUsers();
+  }, []);
   return (
     <div className="home">
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
         <div className="galleryWrapper">
-          {demoData.map((item, index) => {
+          {data.map((item, index) => {
             return <GalleryCard data={item} key={index} />;
           })}
         </div>
@@ -21,54 +39,3 @@ function Gallery() {
 }
 
 export default Gallery;
-
-
-const demoData = [
-  {
-    name: "Pratham Saxena",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-  {
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },{
-    name: "Sujal Varshney",
-    profile: "Software Engineer",
-    image:
-      "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-  },
-];
