@@ -1,13 +1,13 @@
 export const userInputs = [
     {
       id: 1,
-      label: "Username",
+      label: "First Name",
       type: "text",
       placeholder: "john_doe",
     },
     {
       id: 2,
-      label: "Name and surname",
+      label: "Last Name",
       type: "text",
       placeholder: "John Doe",
     },

@@ -74,5 +74,11 @@
       border: 1px dotted rgba(220, 20, 60, 0.6);
       cursor: pointer;
     }
+    .loggedIn{
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: #6439ff;
+      border: 1px dotted #6439ff;
+    }
   }
 }

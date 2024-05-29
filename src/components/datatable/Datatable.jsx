@@ -55,7 +55,7 @@ const Datatable = () => {
     };
     getUsers();
   }, []);
-
+    // console.log(JSON.parse(localStorage.getItem("user")).id);
   const actionColumn = [
     {
       field: "action",
@@ -64,14 +64,17 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            {JSON.parse(localStorage.getItem("user"))._id != params.row._id ? (
+            {JSON.parse(localStorage.getItem("user")).id != params.row._id ? (
               <div
                 className="deleteButton"
                 onClick={() => deleteUser(params.row._id)}
               >
                 Delete
               </div>
-            ) : null}
+            ) : 
+            <div className="loggedIn">
+                Logged IN
+              </div>}
           </div>
         );
       },
