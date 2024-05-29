@@ -1,24 +1,23 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { DarkModeContext } from "./context/darkModeContext";
+import { useState,useContext,useEffect} from "react";
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 import Login from "./pages/login/Login";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { userInputs } from "./formSource";
-import "./style/dark.scss";
-import { useContext,useEffect } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
-import { useState } from "react";
-import AuthenticationContext from "./context/AuthenticationContext";
 import Settings from "./pages/settings/settings";
 import Gallery from "./pages/gallery/Gallery";
 import Team from "./pages/team/Team";
 import News from "./pages/news/News";
 import Contact from "./pages/contact/Contact";
+import AuthenticationContext from "./context/AuthenticationContext";
+import "./style/dark.scss";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
   const [login,setLogin]=useState(false);
+
   useEffect(() => {
       const check = JSON.parse(localStorage.getItem("user"))?.email;
       if (check) {
@@ -27,6 +26,7 @@ function App() {
         setLogin(false);
       }
     }, []);
+
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <AuthenticationContext.Provider value={{ login,setLogin }}>
@@ -42,11 +42,7 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path="/users" element={<List />} />
         <Route path="/users/:userId" element={<Single />} />
-        <Route path="/users/new" element={<New inputs={userInputs} title="Add New User" />}/>
-
-        {/* <Route path="/products" element={<List />} />
-        <Route path="/products/:productId" element={<Single />} />
-        <Route path="/products/new" element={<New inputs={productInputs} title="Add New Product" />}/> */}
+        <Route path="/users/new" element={<New title="Add New User" />}/>
       </Routes>
       :
       <Routes>
