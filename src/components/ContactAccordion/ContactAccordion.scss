@@ -8,8 +8,8 @@
     border-radius: 10px;
     display: flex;
     justify-content: center;
-    // align-items: center;
     background: transparent;
+    cursor: pointer;
 }
 .cardHeader{
     height: 100%;
@@ -20,6 +20,7 @@
     h2,p{
         margin: 0;
         color: #6439ff;
+        font-size: 1rem;
     }
 }
 
