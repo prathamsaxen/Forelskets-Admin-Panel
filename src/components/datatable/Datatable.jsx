@@ -30,6 +30,19 @@ export const userColumns = [
 
 const Datatable = () => {
   const [data, setData] = useState([]);
+  const getUsers = async () => {
+    try {
+      const status = await axios.get(`${process.env.REACT_APP_API}api/user`);
+      if (status.status === 200) {
+        setData(status.data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getUsers();
+  }, []);
   const deleteUser = async (id) => {
     try {
       const status = await axios.delete(
@@ -37,25 +50,13 @@ const Datatable = () => {
       );
       if (status.status === 200) {
         toast.success("User removed successfully!");
+        getUsers();
       }
     } catch (err) {
       toast.error("Error deleting user");
     }
   };
-  useEffect(() => {
-    const getUsers = async () => {
-      try {
-        const status = await axios.get(`${process.env.REACT_APP_API}api/user`);
-        if (status.status === 200) {
-          setData(status.data);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getUsers();
-  }, []);
-    // console.log(JSON.parse(localStorage.getItem("user")).id);
+  // console.log(JSON.parse(localStorage.getItem("user")).id);
   const actionColumn = [
     {
       field: "action",
@@ -71,10 +72,9 @@ const Datatable = () => {
               >
                 Delete
               </div>
-            ) : 
-            <div className="loggedIn">
-                Logged IN
-              </div>}
+            ) : (
+              <div className="loggedIn">Logged IN</div>
+            )}
           </div>
         );
       },
