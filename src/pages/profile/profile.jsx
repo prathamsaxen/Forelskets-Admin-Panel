@@ -87,7 +87,6 @@ const Profile = () => {
         event.preventDefault();
         UpdateUser();
         setFormDisable(false);
-        setValue("Edit");
     }
   };
   const getUserDetail = async () => {
