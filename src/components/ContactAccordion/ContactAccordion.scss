@@ -1,0 +1,25 @@
+.card{
+    width: 90%;
+    margin:auto;
+    margin-top: 10px;
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    // align-items: center;
+    background: transparent;
+}
+.cardHeader{
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: transparent;
+    h2,p{
+        margin: 0;
+        color: #6439ff;
+    }
+}
+

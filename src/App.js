@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DarkModeContext } from "./context/darkModeContext";
-import { useState,useContext,useEffect, Profiler} from "react";
+import { useState,useContext,useEffect} from "react";
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";

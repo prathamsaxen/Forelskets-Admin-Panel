@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import "./profile.scss";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/navbar/Navbar";
+import "./profile.scss";
 
 const Profile = () => {
   const [userData, setData] = useState({
@@ -12,8 +12,8 @@ const Profile = () => {
     email: "",
     phoneNumber: "",
   });
-  const [formDisable, setFormDisable] = useState(false);
-
+  const [formDisable, setFormDisable] = useState(true);
+  const [value, setValue] = useState("Edit");
   const validateForm = () => {
     if (!userData.firstName) {
       toast.error("First Name is required.");
@@ -43,61 +43,67 @@ const Profile = () => {
     return true;
   };
 
-  const registerUser = async (event) => {
-    event.preventDefault();
-    setFormDisable(true);
-    if (validateForm()) {
-      try {
+  const UpdateUser= async()=>{
+      if (validateForm()) {
+        const id = JSON.parse(localStorage.getItem("user")).id;
+        console.log(id);
         const postingData = {
           name: `${userData.firstName} ${userData.lastName}`,
           email: userData.email,
           password: userData.password,
           phoneNumber: userData.phoneNumber,
         };
-        const status = await axios.post(
-          `${process.env.REACT_APP_API}api/register`,
-          postingData
-        );
-        if (status.status === 200) {
-          toast.success("User Registered Successfully!");
-          setData({
-            firstName: "",
-            lastName: "",
-            email: "",
-            phoneNumber: "",
-          });
+        try {
+          const status = await axios.put(
+            `${process.env.REACT_APP_API}api/user/${id}`,
+            postingData
+          );
+          if (status.status === 200) {
+            toast.success("User Updated Successfully!");
+            getUserDetail();
+          }
+        } catch (err) {
+          toast.error(err.response.data.message);
+          console.log(err);
         }
-      } catch (err) {
-        setFormDisable(false);
-        toast.error(err.response.data.message);
-        console.log(err);
       }
+  }
+  const EditUser = async (event) => {
+        event.preventDefault();
+        if (value === "Edit") {
+        setFormDisable(false);
+        setValue("Update");
+        } 
+    else {
+        setFormDisable(true);
+        event.preventDefault();
+        UpdateUser();
+        setFormDisable(false);
+        setValue("Edit");
+    
     }
-    setFormDisable(false);
   };
   const getUserDetail = async () => {
-      const id = JSON.parse(localStorage.getItem("user")).id ;
-      console.log(id);
+    const id = JSON.parse(localStorage.getItem("user")).id;
     try {
       const status = await axios.get(
         `${process.env.REACT_APP_API}api/user/${id}`
       );
       if (status.status === 200) {
-        console.log(status);
         setData({
-            firstName: status.data.name,
-            lastName: status.data.name,
-            email: status.data.email,
-            phoneNumber: status.data.phoneNumber,
-        })
+          firstName: status.data.name.split(" ")[0],
+          lastName: status.data.name.split(" ")[1],
+          email: status.data.email,
+          phoneNumber: status.data.phoneNumber,
+        });
       }
     } catch (err) {
       console.error(err);
     }
   };
-  useEffect(()=>{
+  useEffect(() => {
     getUserDetail();
-  },[]);
+  }, []);
 
   return (
     <div className="new">
@@ -109,7 +115,7 @@ const Profile = () => {
         </div>
         <div className="bottom">
           <div className="right">
-            <form onSubmit={registerUser}>
+            <form>
               <div className="formInput">
                 <label>First Name</label>
                 <input
@@ -158,7 +164,7 @@ const Profile = () => {
                   disabled={formDisable}
                 />
               </div>
-              <input type="submit" value="Register" disabled={formDisable} />
+              <button onClick={EditUser}>{value}</button>
             </form>
           </div>
         </div>
