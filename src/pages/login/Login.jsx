@@ -3,6 +3,7 @@ import stlyes from "./login.module.css";
 import AuthenticationContext from "../../context/AuthenticationContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Login() {
   const { setLogin } = useContext(AuthenticationContext);
@@ -30,11 +31,13 @@ function Login() {
       console.log(status);
       if (status.status === 200) {
         localStorage.setItem("user", JSON.stringify(status.data));
+        toast.success("Logged In Successfully!");
         setLogin(true);
         navigate("/");
       }
     } catch (err) {
       console.log(err.response.data.message);
+      toast.error(err.response.data.message)
     }
     setDisable(false);
   };
