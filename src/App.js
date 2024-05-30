@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DarkModeContext } from "./context/darkModeContext";
-import { useState,useContext,useEffect} from "react";
+import { useState,useContext,useEffect, Profiler} from "react";
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Single from "./pages/single/Single";
@@ -12,6 +12,7 @@ import Team from "./pages/team/Team";
 import News from "./pages/news/News";
 import Contact from "./pages/contact/Contact";
 import AuthenticationContext from "./context/AuthenticationContext";
+import Profile from "./pages/profile/profile";
 import "./style/dark.scss";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path="/users" element={<List />} />
         <Route path="/users/:userId" element={<Single />} />
         <Route path="/users/new" element={<New title="Add New User" />}/>
+        <Route path="/profile" element={<Profile />} />
       </Routes>
       :
       <Routes>
