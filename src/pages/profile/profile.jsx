@@ -6,8 +6,7 @@ import Navbar from "../../components/navbar/Navbar";
 import "./profile.scss";
 
 const Profile = () => {
-  
-    const [userData, setData] = useState({
+  const [userData, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -45,50 +44,48 @@ const Profile = () => {
     return true;
   };
 
-  const UpdateUser= async()=>{
-      if (validateForm()) {
-        const id = JSON.parse(localStorage.getItem("user")).id;
-        console.log(id);
-        const postingData = {
-          name: `${userData.firstName} ${userData.lastName}`,
-          email: userData.email,
-          password: userData.password,
-          phoneNumber: userData.phoneNumber,
-        };
-        try {
-          const status = await axios.put(
-            `${process.env.REACT_APP_API}api/user/${id}`,
-            postingData
-          );
-          if (status.status === 200) {
-            toast.success("User Updated Successfully!");
-            setValue("Edit");
-            getUserDetail();
-
-          }
-        } catch (err) {
-          toast.error(err.response.data.message);
-          console.log(err);
+  const UpdateUser = async () => {
+    if (validateForm()) {
+      const id = JSON.parse(localStorage.getItem("user")).id;
+      console.log(id);
+      const postingData = {
+        name: `${userData.firstName} ${userData.lastName}`,
+        email: userData.email,
+        password: userData.password,
+        phoneNumber: userData.phoneNumber,
+      };
+      try {
+        const status = await axios.put(
+          `${process.env.REACT_APP_API}api/user/${id}`,
+          postingData
+        );
+        if (status.status === 200) {
+          toast.success("User Updated Successfully!");
+          setValue("Edit");
+          getUserDetail();
         }
+      } catch (err) {
+        toast.error(err.response.data.message);
+        console.log(err);
       }
-      else
-      {
-        setValue("Update")
-      }
-  }
-  const EditUser = async (event) => {
-        event.preventDefault();
-        if (value === "Edit") {
-        setFormDisable(false);
-        setValue("Update");
-        } 
-    else {
-        setFormDisable(true);
-        event.preventDefault();
-        UpdateUser();
-        setFormDisable(false);
+    } else {
+      setValue("Update");
     }
   };
+
+  const EditUser = async (event) => {
+    event.preventDefault();
+    if (value === "Edit") {
+      setFormDisable(false);
+      setValue("Update");
+    } else {
+      setFormDisable(true);
+      event.preventDefault();
+      UpdateUser();
+      setFormDisable(false);
+    }
+  };
+
   const getUserDetail = async () => {
     const id = JSON.parse(localStorage.getItem("user")).id;
     try {
@@ -107,6 +104,7 @@ const Profile = () => {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getUserDetail();
   }, []);
@@ -117,18 +115,31 @@ const Profile = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{"Profile"}</h1>
+          <h1>Profile</h1>
         </div>
         <div className="bottom">
           <div className="right">
             <form>
               <div className="formInput">
                 <label>First Name</label>
-                <input type={"text"} placeholder={"John"} value={userData.firstName} onChange={(e) =>setData({ ...userData, firstName: e.target.value })} disabled={formDisable}/>
+                <input
+                  type="text"
+                  placeholder="John"
+                  value={userData.firstName}
+                  onChange={(e) =>
+                    setData({ ...userData, firstName: e.target.value })
+                  }
+                  disabled={formDisable}
+                />
               </div>
               <div className="formInput">
-                <label>Second Name</label>
-                <input type={"text"} placeholder={"Doe"} value={userData.lastName} onChange={(e) => setData({ ...userData, lastName: e.target.value })
+                <label>Last Name</label>
+                <input
+                  type="text"
+                  placeholder="Doe"
+                  value={userData.lastName}
+                  onChange={(e) =>
+                    setData({ ...userData, lastName: e.target.value })
                   }
                   disabled={formDisable}
                 />
@@ -136,8 +147,8 @@ const Profile = () => {
               <div className="formInput">
                 <label>Email</label>
                 <input
-                  type={"email"}
-                  placeholder={"john@domain.com"}
+                  type="email"
+                  placeholder="john@domain.com"
                   value={userData.email}
                   onChange={(e) =>
                     setData({ ...userData, email: e.target.value })
@@ -148,8 +159,8 @@ const Profile = () => {
               <div className="formInput">
                 <label>Mobile</label>
                 <input
-                  type={"number"}
-                  placeholder={"+91 80777 61461"}
+                  type="number"
+                  placeholder="+91 80777 61461"
                   value={userData.phoneNumber}
                   onChange={(e) =>
                     setData({ ...userData, phoneNumber: e.target.value })
