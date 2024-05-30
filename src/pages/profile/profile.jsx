@@ -6,20 +6,22 @@ import Navbar from "../../components/navbar/Navbar";
 import "./profile.scss";
 
 const Profile = () => {
-  const [userData, setData] = useState({
+  
+    const [userData, setData] = useState({
     firstName: "",
     lastName: "",
     email: "",
     phoneNumber: "",
   });
+
   const [formDisable, setFormDisable] = useState(true);
   const [value, setValue] = useState("Edit");
+
   const validateForm = () => {
     if (!userData.firstName) {
       toast.error("First Name is required.");
       return false;
     }
-
     if (!userData.lastName) {
       toast.error("Last Name is required.");
       return false;
@@ -60,12 +62,18 @@ const Profile = () => {
           );
           if (status.status === 200) {
             toast.success("User Updated Successfully!");
+            setValue("Edit");
             getUserDetail();
+
           }
         } catch (err) {
           toast.error(err.response.data.message);
           console.log(err);
         }
+      }
+      else
+      {
+        setValue("Update")
       }
   }
   const EditUser = async (event) => {
@@ -80,7 +88,6 @@ const Profile = () => {
         UpdateUser();
         setFormDisable(false);
         setValue("Edit");
-    
     }
   };
   const getUserDetail = async () => {
@@ -118,24 +125,11 @@ const Profile = () => {
             <form>
               <div className="formInput">
                 <label>First Name</label>
-                <input
-                  type={"text"}
-                  placeholder={"John"}
-                  value={userData.firstName}
-                  onChange={(e) =>
-                    setData({ ...userData, firstName: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
+                <input type={"text"} placeholder={"John"} value={userData.firstName} onChange={(e) =>setData({ ...userData, firstName: e.target.value })} disabled={formDisable}/>
               </div>
               <div className="formInput">
                 <label>Second Name</label>
-                <input
-                  type={"text"}
-                  placeholder={"Doe"}
-                  value={userData.lastName}
-                  onChange={(e) =>
-                    setData({ ...userData, lastName: e.target.value })
+                <input type={"text"} placeholder={"Doe"} value={userData.lastName} onChange={(e) => setData({ ...userData, lastName: e.target.value })
                   }
                   disabled={formDisable}
                 />
