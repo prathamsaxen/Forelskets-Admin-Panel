@@ -16,7 +16,7 @@ function ContactAccordion({ data }) {
           <h2>{data.createdAt}</h2>
           <p>{data.mobile}</p>
         </div>
-          <p>{data.message}</p>
+          <p className="para">{data.message}</p>
         </div>
       </Collapse>
     </div>
