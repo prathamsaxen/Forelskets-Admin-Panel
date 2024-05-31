@@ -4,7 +4,7 @@ import "./GalleryCard.scss";
 
 function GalleryCard({ data }) {
   return (
-    <div className="card" style={{ width: "18rem" }}>
+    <div className="card" style={{ width: "18rem" }} key={data._id}>
       <img
         className="card-img-top"
         src={data.image}

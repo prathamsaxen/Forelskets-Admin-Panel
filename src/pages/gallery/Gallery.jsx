@@ -30,8 +30,8 @@ function Gallery() {
       <div className="homeContainer">
         <Navbar />
         <div className="galleryWrapper">
-          {data.map((item, index) => {
-            return <GalleryCard data={item} key={index} />;
+          {data.map((item) => {
+            return <GalleryCard data={item} key={item._id} />;
           })}
         </div>
       </div>
