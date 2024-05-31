@@ -5,56 +5,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import TeamCard from "../../components/TeamCard/TeamCard";
 import "./Team.scss";
-// const demoData = [
-//   {
-//     name: "Pratham Saxena",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-//   {
-//     name: "Sujal Varshney",
-//     profile: "Software Engineer",
-//     image:
-//       "https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg",
-//   },
-// ];
+
 
 function Team() {
   const [data, setData] = useState([]);
@@ -84,7 +35,6 @@ function Team() {
         getUsers();
       }
     } catch (err) {
-      // console.log("Unable")
       toast.error("Error in Deleting Team Member");
       console.log(err);
     }
