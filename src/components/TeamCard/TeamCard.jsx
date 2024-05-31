@@ -2,7 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./TeamCard.scss";
 
-function TeamCard({ data }) {
+function TeamCard({ data,deleteFunction }) {
   return (
     <div className="Teamcard">
       <div className="upperTeamCard">
@@ -13,7 +13,7 @@ function TeamCard({ data }) {
       <div className="lowerTeamCard">
         <h2>{data.name}</h2>
         <p>{data.profile}</p>
-        <button>
+        <button onClick={()=>deleteFunction(data._id)}>
           Delete
         </button>
       </div>
