@@ -50,10 +50,9 @@ function Gallery() {
           {data.map((item) => {
             return (
               <GalleryCard
-                data={item}
-                deleteFunction={DeleteGalleryImage}
-                key={item._id}
-              />
+                            data={item}
+                            deleteFunction={DeleteGalleryImage}
+                            key={item._id}/>
             );
           })}
         </div>
