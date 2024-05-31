@@ -1,19 +1,18 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import "./GalleryCard.scss";
 
-function GalleryCard({ data }) {
+function GalleryCard({ data, deleteFunction }) {
   return (
     <div className="card" style={{ width: "18rem" }} key={data._id}>
       <img
         className="card-img-top"
         src={data.image}
-        alt="Card image cap"
+        alt="Error in Loading"
       />
       <div className="card-body">
-        <NavLink to={"/"} className="btn btn-primary">
+        <button onClick={()=>deleteFunction(data._id)} className="btn btn-primary">
           Delete
-        </NavLink>
+        </button>
       </div>
     </div>
   );
