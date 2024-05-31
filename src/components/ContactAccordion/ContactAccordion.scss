@@ -1,40 +1,44 @@
 .cardAccordion{
-    width: 90%;
-    margin:auto;
-    margin-top: 10px;
     box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    background: transparent;
     cursor: pointer;
-    // border: 2px solid red;
-}
-.cardHeaderAccordion,.upperAccordion{
-    height: 100%;
-    width:100%;
-    display: flex;
-    // flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background: transparent;
-    // border: 2px solid red;
-    h2,p{
-        margin: 0;
-        color: #6439ff;
-        font-size: 1rem;
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+    border-radius: 6px;
+    padding: 15px;
+    .cardHeaderAccordion{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        h2,p{
+            padding: 0;
+            margin: 0;
+        }
+        h2{
+            font-size: 22px;
+            color: gray;
+            font-family: Poppins;
+        }
     }
-}
-.upperAccordion{
-    h2,p{
-        color: black;
-        font-size: .8rem;
+    .upperAccordion{
+        // border: 2px solid red;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        p{
+            margin: 0;
+            font-size: 12px;
+            margin-top: -2px;
+        }
     }
 }
 .paraAccordion{
-    padding: 10px;
-    margin-bottom: 0;
+    // border: 2px solid red;
+    // width: 80%;
+    margin: auto;
+    margin-top: 10px;
 }
-
+.cardAccordion:first-of-type{
+    // border: 2px solid red;
+    margin-top: 20px;
+}
