@@ -1,0 +1,18 @@
+.card{
+    // border: 2px solid red;
+    margin: 0 !important;
+}
+.card-body{
+    display: flex;
+    justify-content: center;
+    padding: 8px !important;
+    a{
+        background-color: crimson;
+        width: 100% !important;
+        border: none !important;
+
+    }
+    a:hover{
+        background-color: red;
+    }
+}

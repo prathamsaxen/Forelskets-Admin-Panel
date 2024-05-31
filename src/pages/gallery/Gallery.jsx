@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./Gallery.scss";
+import { toast } from "react-toastify";
+import axios from "axios";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
-import axios from "axios";
+import "./Gallery.scss";
 
 function Gallery() {
   const [data, setData] = useState([]);
@@ -14,11 +15,11 @@ function Gallery() {
           `${process.env.REACT_APP_API}api/getgallery`
         );
         if (status.status === 200) {
-          // console.log(status.data);
           setData(status.data);
         }
       } catch (err) {
         console.log(err);
+        toast.error("Error in Fetching Gallery");
       }
     };
     getUsers();

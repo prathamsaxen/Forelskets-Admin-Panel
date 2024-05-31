@@ -4,11 +4,12 @@
     .homeContainer {
       flex: 6;
       .galleryWrapper{
-        // border: 2px solid red;
+        margin-top: 20px;
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         gap: 15px;
-        margin: 15px;
+        
       }
       .widgets,
       .charts {
