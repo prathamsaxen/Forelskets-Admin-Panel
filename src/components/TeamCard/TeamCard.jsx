@@ -1,16 +1,21 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import "./TeamCard.scss";
 
 function TeamCard({ data }) {
   return (
-    <div className="card" style={{ width: "18rem" }}>
-      <img className="card-img-top" src={data.photo} alt="Error"/>
-      <div className="card-body">
-        <h5 className="card-title">{data.name}</h5>
-        <p className="card-text">{data.profile}</p>
-        <NavLink to={"/"} className="btn btn-primary">
-          Go somewhere
-        </NavLink>
+    <div className="Teamcard">
+      <div className="upperTeamCard">
+        <div className="imageWrapper">
+          <img src={data.photo} alt="Error" />
+        </div>
+      </div>
+      <div className="lowerTeamCard">
+        <h2>{data.name}</h2>
+        <p>{data.profile}</p>
+        <button>
+          Delete
+        </button>
       </div>
     </div>
   );

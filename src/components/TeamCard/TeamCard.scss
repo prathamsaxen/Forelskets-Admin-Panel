@@ -1,0 +1,68 @@
+.Teamcard{
+    // border: 2px solid black;
+    width: 280px;
+    height: 280px;
+    border-radius: 25px;
+    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+
+    .upperTeamCard{
+        // border: 2px solid red;
+        height: 65%;
+        border-radius: 25px;
+        background-color: #7451f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .imageWrapper{
+            // border: 2px solid green;
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            display: flex;
+            border: 3px solid #FFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            img{
+                object-fit: cover;
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+            }
+           
+            
+        }
+    }
+    .lowerTeamCard{
+        // border: 2px solid red;
+        height: 35%;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h2{
+            font-family: poppins;
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        p{
+            // border: 2px solid red;
+            margin: 0;
+            font-size: 12px;
+        }
+        button{
+            margin-top: 4px;
+                background-color: crimson;
+                width: 80% !important;
+                border: none !important;
+                color: #FFF;
+                border-radius: 6px;
+                margin-top: 6px;
+        }
+        button:hover{
+            background-color: red;
+        }
+    }
+}

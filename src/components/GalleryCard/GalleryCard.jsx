@@ -12,8 +12,7 @@ function GalleryCard({ data, deleteFunction }) {
       <div className="card-body">
         <button
           onClick={() => deleteFunction(data._id)}
-          className="btn btn-primary"
-        >
+          className="btn btn-primary">
           Delete
         </button>
       </div>
