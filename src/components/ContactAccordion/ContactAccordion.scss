@@ -1,4 +1,4 @@
-.card{
+.cardAccordion{
     width: 90%;
     margin:auto;
     margin-top: 10px;
@@ -10,26 +10,30 @@
     justify-content: center;
     background: transparent;
     cursor: pointer;
+    // border: 2px solid red;
 }
-.cardHeader,.upper{
+.cardHeaderAccordion,.upperAccordion{
     height: 100%;
+    width:100%;
     display: flex;
+    // flex-direction: column;
     justify-content: space-between;
     align-items: center;
     background: transparent;
+    // border: 2px solid red;
     h2,p{
         margin: 0;
         color: #6439ff;
         font-size: 1rem;
     }
 }
-.upper{
+.upperAccordion{
     h2,p{
         color: black;
         font-size: .8rem;
     }
 }
-.para{
+.paraAccordion{
     padding: 10px;
     margin-bottom: 0;
 }

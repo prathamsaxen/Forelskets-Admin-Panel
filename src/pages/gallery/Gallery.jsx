@@ -25,20 +25,22 @@ function Gallery() {
     getGallery();
   }, []);
 
-  const DeleteGalleryImage=async (id)=>{
-    try{
-        const status=axios.delete(`${process.env.REACT_APP_API}api/deleteGallery/${id}`);
-        if(status.status === 200) {
-          toast.success("Image Removed!");
-          console.log("Deleted");
-          getGallery();
-        }
-    }
-    catch (err) {
+  const DeleteGalleryImage = async (id) => {
+    try {
+      const status = await axios.delete(
+        `${process.env.REACT_APP_API}api/deleteGallery/${id}`
+      );
+      if (status.status === 200) {
+        console.log("Deleted");
+        toast.success("Image Removed!");
+        getGallery();
+      }
+    } catch (err) {
+      // console.log("Unable")
       toast.error("Error in Deleting Image");
       console.log(err);
     }
-  }
+  };
   return (
     <div className="home">
       <Sidebar />
@@ -46,7 +48,13 @@ function Gallery() {
         <Navbar />
         <div className="galleryWrapper">
           {data.map((item) => {
-            return <GalleryCard data={item} deleteFunction={DeleteGalleryImage} key={item._id} />;
+            return (
+              <GalleryCard
+                data={item}
+                deleteFunction={DeleteGalleryImage}
+                key={item._id}
+              />
+            );
           })}
         </div>
       </div>
