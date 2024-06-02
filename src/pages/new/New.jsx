@@ -5,8 +5,8 @@ import Navbar from "../../components/navbar/Navbar";
 import { toast } from "react-toastify";
 import axios from "axios";
 
-const New = ({ inputs, title }) => {
-  const [userData, setData] = useState({
+const New = ({ title }) => {
+  const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -14,14 +14,43 @@ const New = ({ inputs, title }) => {
     password: "",
     confirmPassword: "",
   });
-  const [formDisable,setFormDisable] = useState(false);
+
+  const [formDisable, setFormDisable] = useState(false);
+
+  const formFields = [
+    {
+      label: "First Name",
+      name: "firstName",
+      type: "text",
+      placeholder: "John",
+    },
+    {
+      label: "Second Name",
+      name: "lastName",
+      type: "text",
+      placeholder: "Doe",
+    },
+    {
+      label: "Email",
+      name: "email",
+      type: "email",
+      placeholder: "john@domain.com",
+    },
+    {
+      label: "Mobile",
+      name: "phoneNumber",
+      type: "number",
+      placeholder: "+91 80777 61461",
+    },
+    { label: "Password", name: "password", type: "password" },
+    { label: "Confirm Password", name: "confirmPassword", type: "password" },
+  ];
 
   const validateForm = () => {
     if (!userData.firstName) {
       toast.error("First Name is required.");
       return false;
     }
-
     if (!userData.lastName) {
       toast.error("Last Name is required.");
       return false;
@@ -61,41 +90,45 @@ const New = ({ inputs, title }) => {
     return true;
   };
 
-  const registerUser = async(event) => {
+  const registerUser = async (event) => {
     event.preventDefault();
     setFormDisable(true);
-    if(validateForm())
-      {
-        try{
-          const postingData={
-            name:`${userData.firstName} ${userData.lastName}`,
-            email:userData.email,
-            password:userData.password,
-            phoneNumber:userData.phoneNumber
-          }
-          const status=await axios.post(`${process.env.REACT_APP_API}api/register`,postingData);
-          if(status.status===200)
-            {
-              toast.success("User Registered Successfully!");
-              setData({
-                firstName: "",
-                lastName: "",
-                email: "",
-                phoneNumber: "",
-                password: "",
-                confirmPassword: "",
-              })
-            }
+
+    if (validateForm()) {
+      try {
+        const postingData = {
+          name: `${userData.firstName} ${userData.lastName}`,
+          email: userData.email,
+          password: userData.password,
+          phoneNumber: userData.phoneNumber,
+        };
+
+        const status = await axios.post(
+          `${process.env.REACT_APP_API}api/register`,
+          postingData
+        );
+
+        if (status.status === 200) {
+          toast.success("User Registered Successfully!");
+          setUserData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            phoneNumber: "",
+            password: "",
+            confirmPassword: "",
+          });
         }
-        catch(err)
-        {
-          setFormDisable(false);
-          toast.error(err.response.data.message);
-          console.log(err);
-        }
+      } catch (err) {
+        setFormDisable(false);
+        toast.error(err.response.data.message);
+        console.error(err);
       }
+    }
+
     setFormDisable(false);
   };
+
   return (
     <div className="new">
       <Sidebar />
@@ -107,77 +140,21 @@ const New = ({ inputs, title }) => {
         <div className="bottom">
           <div className="right">
             <form onSubmit={registerUser}>
-              <div className="formInput">
-                <label>First Name</label>
-                <input
-                  type={"text"}
-                  placeholder={"John"}
-                  value={userData.firstName}
-                  onChange={(e) =>
-                    setData({ ...userData, firstName: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Second Name</label>
-                <input
-                  type={"text"}
-                  placeholder={"Doe"}
-                  value={userData.lastName}
-                  onChange={(e) =>
-                    setData({ ...userData, lastName: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Email</label>
-                <input
-                  type={"email"}
-                  placeholder={"john@domain.com"}
-                  value={userData.email}
-                  onChange={(e) =>
-                    setData({ ...userData, email: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Mobile</label>
-                <input
-                  type={"number"}
-                  placeholder={"+91 80777 61461"}
-                  value={userData.phoneNumber}
-                  onChange={(e) =>
-                    setData({ ...userData, phoneNumber: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Password</label>
-                <input
-                  type={"password"}
-                  value={userData.password}
-                  onChange={(e) =>
-                    setData({ ...userData, password: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Confirm Password</label>
-                <input
-                  type={"password"}
-                  value={userData.confirmPassword}
-                  onChange={(e) =>
-                    setData({ ...userData, confirmPassword: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <input type="submit" value="Register" disabled={formDisable}/>
+              {formFields.map((field) => (
+                <div className="formInput" key={field.name}>
+                  <label>{field.label}</label>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={userData[field.name]}
+                    onChange={(e) =>
+                      setUserData({ ...userData, [field.name]: e.target.value })
+                    }
+                    disabled={formDisable}
+                  />
+                </div>
+              ))}
+              <input type="submit" value="Register" disabled={formDisable} />
             </form>
           </div>
         </div>

@@ -123,10 +123,7 @@ function Gallery() {
               <GalleryCard
                 data={item}
                 deleteFunction={DeleteGalleryImage}
-                key={item._id}
-              />
-            );
-          })}
+                key={item._id}/>);})}
         </div>
       </div>
     </div>
