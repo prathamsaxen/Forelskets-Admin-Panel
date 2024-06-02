@@ -16,6 +16,13 @@ const Profile = () => {
   const [formDisable, setFormDisable] = useState(true);
   const [value, setValue] = useState("Edit");
 
+  const formFields = [
+    { label: "First Name", name: "firstName", type: "text", placeholder: "John" },
+    { label: "Last Name", name: "lastName", type: "text", placeholder: "Doe" },
+    { label: "Email", name: "email", type: "email", placeholder: "john@domain.com" },
+    { label: "Mobile", name: "phoneNumber", type: "number", placeholder: "+91 80777 61461" },
+  ];
+
   const validateForm = () => {
     if (!userData.firstName) {
       toast.error("First Name is required.");
@@ -44,14 +51,12 @@ const Profile = () => {
     return true;
   };
 
-  const UpdateUser = async () => {
+  const updateUser = async () => {
     if (validateForm()) {
       const id = JSON.parse(localStorage.getItem("user")).id;
-      console.log(id);
       const postingData = {
         name: `${userData.firstName} ${userData.lastName}`,
         email: userData.email,
-        password: userData.password,
         phoneNumber: userData.phoneNumber,
       };
       try {
@@ -66,23 +71,21 @@ const Profile = () => {
         }
       } catch (err) {
         toast.error(err.response.data.message);
-        console.log(err);
+        console.error(err);
       }
     } else {
       setValue("Update");
     }
   };
 
-  const EditUser = async (event) => {
+  const editUser = async (event) => {
     event.preventDefault();
     if (value === "Edit") {
       setFormDisable(false);
       setValue("Update");
     } else {
       setFormDisable(true);
-      event.preventDefault();
-      UpdateUser();
-      setFormDisable(false);
+      updateUser();
     }
   };
 
@@ -120,55 +123,21 @@ const Profile = () => {
         <div className="bottom">
           <div className="right">
             <form>
-              <div className="formInput">
-                <label>First Name</label>
-                <input
-                  type="text"
-                  placeholder="John"
-                  value={userData.firstName}
-                  onChange={(e) =>
-                    setData({ ...userData, firstName: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Last Name</label>
-                <input
-                  type="text"
-                  placeholder="Doe"
-                  value={userData.lastName}
-                  onChange={(e) =>
-                    setData({ ...userData, lastName: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Email</label>
-                <input
-                  type="email"
-                  placeholder="john@domain.com"
-                  value={userData.email}
-                  onChange={(e) =>
-                    setData({ ...userData, email: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <div className="formInput">
-                <label>Mobile</label>
-                <input
-                  type="number"
-                  placeholder="+91 80777 61461"
-                  value={userData.phoneNumber}
-                  onChange={(e) =>
-                    setData({ ...userData, phoneNumber: e.target.value })
-                  }
-                  disabled={formDisable}
-                />
-              </div>
-              <button onClick={EditUser}>{value}</button>
+              {formFields.map((field) => (
+                <div className="formInput" key={field.name}>
+                  <label>{field.label}</label>
+                  <input
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={userData[field.name]}
+                    onChange={(e) =>
+                      setData({ ...userData, [field.name]: e.target.value })
+                    }
+                    disabled={formDisable}
+                  />
+                </div>
+              ))}
+              <button onClick={editUser}>{value}</button>
             </form>
           </div>
         </div>
