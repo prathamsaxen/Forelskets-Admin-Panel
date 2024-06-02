@@ -12,6 +12,7 @@ function Gallery() {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const [image, setImage] = useState(false);
+  
   const getGallery = async () => {
     try {
       const status = await axios.get(
@@ -57,10 +58,12 @@ function Gallery() {
 
   const handleUpload = async () => {
     if (image) {
+      const formData = new FormData();
+      formData.append('image', image);
       try {
         const response = await axios.post(
-          `${process.env.REACT_APP_API}postimage`,
-          image,
+          `${process.env.REACT_APP_API}api/addGallery`,
+          formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
