@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Modal, Form, Button } from "react-bootstrap";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import TeamCard from "../../components/TeamCard/TeamCard";
-import { Modal, Form, Button } from "react-bootstrap";
 import "./Team.scss";
 
 function Team() {
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
   const [image, setImage] = useState(null);
-  const [name, setName] = useState("");
-  const [profile, setProfile] = useState("");
+  const [formValues, setFormValues] = useState({
+    name: "",
+    profile: "",
+  });
+
+  const formFields = [
+    { label: "Name", name: "name", type: "text", placeholder: "Enter name" },
+    { label: "Profile", name: "profile", type: "text", placeholder: "Enter profile" },
+  ];
 
   const getUsers = async () => {
     try {
@@ -34,10 +40,10 @@ function Team() {
     if (!image) {
       toast.error("Select an Image to upload!");
       return false;
-    } else if (name.trim() === "") {
+    } else if (formValues.name.trim() === "") {
       toast.error("Please enter the name of the member");
       return false;
-    } else if (profile.trim() === "") {
+    } else if (formValues.profile.trim() === "") {
       toast.error("Please enter the profile of the member!");
       return false;
     }
@@ -53,17 +59,16 @@ function Team() {
     setShow(!show);
     if (!show) {
       setImage(null);
-      setName("");
-      setProfile("");
+      setFormValues({ name: "", profile: "" });
     }
   };
 
-  const AddTeamMember = async () => {
+  const addTeamMember = async () => {
     if (formValidation()) {
       const formData = new FormData();
-      formData.append("name", name);
+      formData.append("name", formValues.name);
       formData.append("image", image);
-      formData.append("profile", profile);
+      formData.append("profile", formValues.profile);
 
       try {
         const response = await axios.post(
@@ -78,8 +83,7 @@ function Team() {
         if (response.status === 200) {
           toast.success("Member Added!");
           setImage(null);
-          setName("");
-          setProfile("");
+          setFormValues({ name: "", profile: "" });
           setShow(false);
           getUsers();
         }
@@ -90,7 +94,7 @@ function Team() {
     }
   };
 
-  const DeleteTeamMember = async (id) => {
+  const deleteTeamMember = async (id) => {
     try {
       const response = await axios.delete(
         `${process.env.REACT_APP_API}api/deleteTeam/${id}`
@@ -124,32 +128,30 @@ function Team() {
                   onChange={handleImageChange}
                 />
               </Form.Group>
-              <Form.Group controlId="name" className="my-3">
-                <Form.Label>Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Enter name"
-                  onChange={(e) => setName(e.target.value)}
-                  value={name}
-                />
-              </Form.Group>
-              <Form.Group controlId="profile" className="my-3">
-                <Form.Label>Profile</Form.Label>
-                <Form.Control
-                  type="text"
-                  rows={3}
-                  placeholder="Enter profile"
-                  value={profile}
-                  onChange={(e) => setProfile(e.target.value)}
-                />
-              </Form.Group>
+              {formFields.map((field) => (
+                <Form.Group controlId={field.name} className="my-3" key={field.name}>
+                  <Form.Label>{field.label}</Form.Label>
+                  <Form.Control
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formValues[field.name]}
+                    onChange={(e) =>
+                      setFormValues({ ...formValues, [field.name]: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              ))}
             </Form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={AddTeamMember} disabled={!image || name.trim() === "" || profile.trim() === ""}>
+            <Button
+              variant="primary"
+              onClick={addTeamMember}
+              disabled={!image || formValues.name.trim() === "" || formValues.profile.trim() === ""}
+            >
               Upload
             </Button>
           </Modal.Footer>
@@ -164,7 +166,7 @@ function Team() {
             <TeamCard
               data={item}
               key={item._id}
-              deleteFunction={DeleteTeamMember}
+              deleteFunction={deleteTeamMember}
             />
           ))}
         </div>
