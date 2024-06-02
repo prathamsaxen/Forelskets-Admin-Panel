@@ -5,10 +5,16 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import TeamCard from "../../components/TeamCard/TeamCard";
+import { Modal, Form, Button } from "react-bootstrap";
 import "./Team.scss";
 
 function Team() {
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
+  const [profile, setProfile] = useState("");
+
   const getUsers = async () => {
     try {
       const status = await axios.get(`${process.env.REACT_APP_API}api/getteam`);
@@ -23,6 +29,17 @@ function Team() {
     getUsers();
   }, []);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+
+  const handleModal = () => {
+    setShow(!show);
+    setImage(null);
+  };
+
+  const AddTeamMember = async () => {};
   const DeleteTeamMember = async (id) => {
     try {
       const status = await axios.delete(
@@ -44,10 +61,55 @@ function Team() {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
+        <Modal show={show}>
+          <Modal.Header>
+            <Modal.Title>Add Team Member</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group controlId="formFile">
+                <Form.Label>Choose an image</Form.Label>
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="name" className="my-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter name"
+                  onChange={(e) => setName(e.target.value)}
+                  value={name}
+                  />
+              </Form.Group>
+              <Form.Group controlId="profile" className="my-3">
+                <Form.Label>Profile</Form.Label>
+                <Form.Control
+                  important
+                  type="text"
+                  rows={3}
+                  placeholder="Enter profile"
+                  value={profile}
+                  onChange={(e) => setProfile(e.target.value)}
+                />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleModal}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={AddTeamMember} disabled={!image}>
+              Upload
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <div className="datatableTitle">
-          <Link to="/users/new" className="link">
+          <Button onClick={handleModal} className="link">
             Add New Team Member
-          </Link>
+          </Button>
         </div>
         <div className="teamWrapper">
           {data.map((item, index) => {
