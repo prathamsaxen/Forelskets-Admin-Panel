@@ -13,7 +13,6 @@ function Team() {
     try {
       const status = await axios.get(`${process.env.REACT_APP_API}api/getteam`);
       if (status.status === 200) {
-        // console.log(status.data);
         setData(status.data);
       }
     } catch (err) {
@@ -46,7 +45,6 @@ function Team() {
       <div className="homeContainer">
         <Navbar />
         <div className="datatableTitle">
-          {/* Active Team Members */}
           <Link to="/users/new" className="link">
             Add New Team Member
           </Link>
