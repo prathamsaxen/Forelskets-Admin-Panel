@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
@@ -46,6 +47,11 @@ function Gallery() {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
+        <div className="datatableTitle">
+          <Link to="/users/new" className="link">
+            Add New Gallery Image
+          </Link>
+        </div>
         <div className="galleryWrapper">
           {data.map((item) => {
             return (

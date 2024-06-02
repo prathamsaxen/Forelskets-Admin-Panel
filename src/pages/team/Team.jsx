@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import TeamCard from "../../components/TeamCard/TeamCard";
 import "./Team.scss";
-
 
 function Team() {
   const [data, setData] = useState([]);
@@ -45,9 +45,21 @@ function Team() {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
+        <div className="datatableTitle">
+          {/* Active Team Members */}
+          <Link to="/users/new" className="link">
+            Add New Team Member
+          </Link>
+        </div>
         <div className="teamWrapper">
           {data.map((item, index) => {
-            return <TeamCard data={item} key={item._id} deleteFunction={DeleteTeamMember}/>;
+            return (
+              <TeamCard
+                data={item}
+                key={item._id}
+                deleteFunction={DeleteTeamMember}
+              />
+            );
           })}
         </div>
       </div>
