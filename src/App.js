@@ -17,16 +17,17 @@ import "./style/dark.scss";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
-  const [login,setLogin]=useState(false);
+  const [login,setLogin]=useState(true);
 
-  useEffect(() => {
-      const check = JSON.parse(localStorage.getItem("user"))?.email;
-      if (check) {
-        setLogin(true);
-      } else {
-        setLogin(false);
-      }
-    }, []);
+  // useEffect(() => {
+  //     const check = JSON.parse(localStorage.getItem("user"))?.email;
+  //     if (check) {
+  //       setLogin(true);
+  //     } else {
+  //       setLogin(false);
+  //     }
+  //   }, []);
+
 
   return (
     <div className={darkMode ? "app dark" : "app"}>
