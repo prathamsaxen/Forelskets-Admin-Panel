@@ -1,10 +1,9 @@
-import "./datatable.scss";
-import { DataGrid } from "@mui/x-data-grid";
-// import { userColumns } from "../../datatablesource";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import { DataGrid } from "@mui/x-data-grid";
 import { toast } from "react-toastify";
+import axios from "axios";
+import "./datatable.scss";
 
 export const userColumns = [
   { field: "_id", headerName: "ID", width: 250 },
@@ -65,7 +64,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            {JSON.parse(localStorage.getItem("user")).id != params.row._id ? (
+            {JSON.parse(localStorage.getItem("user")).id !== params.row._id ? (
               <div
                 className="deleteButton"
                 onClick={() => deleteUser(params.row._id)}
