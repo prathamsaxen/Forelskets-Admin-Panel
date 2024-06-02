@@ -4,9 +4,7 @@ import axios from "axios";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
-import { Modal } from "react-bootstrap";
-import { Form } from "react-bootstrap";
-import { Button } from "react-bootstrap";
+import { Modal, Form, Button } from "react-bootstrap";
 import "./Gallery.scss";
 // import { Link } from "react-router-dom";
 
@@ -46,17 +44,44 @@ function Gallery() {
       console.log(err);
     }
   };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
   };
+
   const handleModal = () => {
     setShow(!show);
     setImage(false);
   };
-  const handleUpload = () => {
-    console.log(image);
+
+  const handleUpload = async () => {
+    if (image) {
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}postimage`,
+          image,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.status === 200) {
+          toast.success("Image Uploaded!");
+          setImage(false);
+          setShow(false);
+          getGallery();
+        }
+      } catch (err) {
+        toast.error("Error in Uploading Image");
+        console.log(err);
+      }
+    } else {
+      toast.error("Please select an image to upload");
+    }
   };
+
   return (
     <div className="home">
       <Sidebar />
