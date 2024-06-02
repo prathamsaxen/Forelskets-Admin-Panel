@@ -61,8 +61,8 @@ function Team() {
   const AddTeamMember = async () => {
     if (formValidation()) {
       const formData = new FormData();
-      formData.append("image", image);
       formData.append("name", name);
+      formData.append("image", image);
       formData.append("profile", profile);
 
       try {

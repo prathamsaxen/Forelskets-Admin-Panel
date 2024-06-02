@@ -6,7 +6,6 @@ import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
 import { Modal, Form, Button } from "react-bootstrap";
 import "./Gallery.scss";
-// import { Link } from "react-router-dom";
 
 function Gallery() {
   const [data, setData] = useState([]);
