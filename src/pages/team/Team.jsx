@@ -29,6 +29,19 @@ function Team() {
     getUsers();
   }, []);
 
+  const formValidation = () => {
+    if (!image) {
+      toast.error("Select a Image to upload!");
+      return false;
+    } else if (name.trim() == "") {
+      toast.error("Please enter the name of member");
+      return false;
+    } else if (profile.trim() == "") {
+      toast.error("Please enter the profile of member!");
+      return false;
+    }
+    return true;
+  };
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -39,7 +52,35 @@ function Team() {
     setImage(null);
   };
 
-  const AddTeamMember = async () => {};
+  const AddTeamMember = async () => {
+    if (formValidation()) {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("name", name);
+      formData.append("profile", profile);
+
+      try {
+        const response = await axios.post(
+          `${process.env.REACT_APP_API}api/addTeam`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.status === 200) {
+          toast.success("Member Added!");
+          setImage(false);
+          setShow(false);
+          getGallery();
+        }
+      } catch (err) {
+        toast.error("Error in Adding Member");
+        console.log(err);
+      }
+    }
+  };
   const DeleteTeamMember = async (id) => {
     try {
       const status = await axios.delete(
@@ -82,12 +123,11 @@ function Team() {
                   placeholder="Enter name"
                   onChange={(e) => setName(e.target.value)}
                   value={name}
-                  />
+                />
               </Form.Group>
               <Form.Group controlId="profile" className="my-3">
                 <Form.Label>Profile</Form.Label>
                 <Form.Control
-                  important
                   type="text"
                   rows={3}
                   placeholder="Enter profile"
