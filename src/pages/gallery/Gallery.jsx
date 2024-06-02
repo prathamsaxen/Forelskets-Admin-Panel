@@ -5,10 +5,15 @@ import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
+import { Modal } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import "./Gallery.scss";
 
 function Gallery() {
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [image, setImage] = useState(false);
   const getGallery = async () => {
     try {
       const status = await axios.get(
@@ -37,28 +42,62 @@ function Gallery() {
         getGallery();
       }
     } catch (err) {
-      // console.log("Unable")
       toast.error("Error in Deleting Image");
       console.log(err);
     }
   };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+  };
+  const handleModal = () => {
+    setShow(!show);
+    setImage(false);
+  };
+  const handleUpload = () => {
+    console.log(image);
+  };
   return (
     <div className="home">
       <Sidebar />
+      <Modal show={show}>
+        <Modal.Header>
+          <Modal.Title>Add Gallery Image</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formFile">
+              <Form.Label>Choose an image</Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModal}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleUpload} disabled={!image}>
+            Upload
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div className="homeContainer">
         <Navbar />
         <div className="datatableTitle">
-          <Link to="/users/new" className="link">
-            Add New Gallery Image
-          </Link>
+          <Button onClick={handleModal}>Add New Gallery Image</Button>
         </div>
         <div className="galleryWrapper">
           {data.map((item) => {
             return (
               <GalleryCard
-                            data={item}
-                            deleteFunction={DeleteGalleryImage}
-                            key={item._id}/>
+                data={item}
+                deleteFunction={DeleteGalleryImage}
+                key={item._id}
+              />
             );
           })}
         </div>

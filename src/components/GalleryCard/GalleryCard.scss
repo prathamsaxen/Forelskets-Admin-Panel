@@ -6,11 +6,15 @@
         height: 250px;
         margin: auto;
     }
+    background: transparent !important;
+    border: 1px solid gray !important;
+    // background-color: black !important;
 }
 .card-body{
     display: flex;
     justify-content: center;
     padding: 8px !important;
+    background: transparent;
     button{
         background-color: crimson;
         width: 100% !important;
