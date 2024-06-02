@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import GalleryCard from "../../components/GalleryCard/GalleryCard";
@@ -9,6 +8,7 @@ import { Modal } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import "./Gallery.scss";
+// import { Link } from "react-router-dom";
 
 function Gallery() {
   const [data, setData] = useState([]);

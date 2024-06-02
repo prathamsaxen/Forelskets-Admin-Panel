@@ -1,8 +1,8 @@
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
 import "./navbar.scss"; 
+// import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 // import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 // import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 // import FullscreenExitOutlinedIcon from "@mui/icons-material/FullscreenExitOutlined";
