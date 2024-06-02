@@ -17,31 +17,33 @@ function Team() {
 
   const getUsers = async () => {
     try {
-      const status = await axios.get(`${process.env.REACT_APP_API}api/getteam`);
-      if (status.status === 200) {
-        setData(status.data);
+      const response = await axios.get(`${process.env.REACT_APP_API}api/getteam`);
+      if (response.status === 200) {
+        setData(response.data);
       }
     } catch (err) {
-      console.log(err);
+      console.error("Error fetching team data:", err);
     }
   };
+
   useEffect(() => {
     getUsers();
   }, []);
 
   const formValidation = () => {
     if (!image) {
-      toast.error("Select a Image to upload!");
+      toast.error("Select an Image to upload!");
       return false;
-    } else if (name.trim() == "") {
-      toast.error("Please enter the name of member");
+    } else if (name.trim() === "") {
+      toast.error("Please enter the name of the member");
       return false;
-    } else if (profile.trim() == "") {
-      toast.error("Please enter the profile of member!");
+    } else if (profile.trim() === "") {
+      toast.error("Please enter the profile of the member!");
       return false;
     }
     return true;
   };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setImage(file);
@@ -49,7 +51,11 @@ function Team() {
 
   const handleModal = () => {
     setShow(!show);
-    setImage(null);
+    if (!show) {
+      setImage(null);
+      setName("");
+      setProfile("");
+    }
   };
 
   const AddTeamMember = async () => {
@@ -71,29 +77,31 @@ function Team() {
         );
         if (response.status === 200) {
           toast.success("Member Added!");
-          setImage(false);
+          setImage(null);
+          setName("");
+          setProfile("");
           setShow(false);
-          getGallery();
+          getUsers();
         }
       } catch (err) {
         toast.error("Error in Adding Member");
-        console.log(err);
+        console.error("Error adding team member:", err);
       }
     }
   };
+
   const DeleteTeamMember = async (id) => {
     try {
-      const status = await axios.delete(
+      const response = await axios.delete(
         `${process.env.REACT_APP_API}api/deleteTeam/${id}`
       );
-      if (status.status === 200) {
-        console.log("Deleted Team Member");
+      if (response.status === 200) {
         toast.success("Removed Team Member!");
         getUsers();
       }
     } catch (err) {
       toast.error("Error in Deleting Team Member");
-      console.log(err);
+      console.error("Error deleting team member:", err);
     }
   };
 
@@ -102,8 +110,8 @@ function Team() {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-        <Modal show={show}>
-          <Modal.Header>
+        <Modal show={show} onHide={handleModal}>
+          <Modal.Header closeButton>
             <Modal.Title>Add Team Member</Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -141,7 +149,7 @@ function Team() {
             <Button variant="secondary" onClick={handleModal}>
               Close
             </Button>
-            <Button variant="primary" onClick={AddTeamMember} disabled={!image}>
+            <Button variant="primary" onClick={AddTeamMember} disabled={!image || name.trim() === "" || profile.trim() === ""}>
               Upload
             </Button>
           </Modal.Footer>
@@ -152,15 +160,13 @@ function Team() {
           </Button>
         </div>
         <div className="teamWrapper">
-          {data.map((item, index) => {
-            return (
-              <TeamCard
-                data={item}
-                key={item._id}
-                deleteFunction={DeleteTeamMember}
-              />
-            );
-          })}
+          {data.map((item) => (
+            <TeamCard
+              data={item}
+              key={item._id}
+              deleteFunction={DeleteTeamMember}
+            />
+          ))}
         </div>
       </div>
     </div>
