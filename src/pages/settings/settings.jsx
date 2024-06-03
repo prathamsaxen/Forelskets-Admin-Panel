@@ -1,5 +1,6 @@
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
+import SettingsForm from "../../components/SettingsForm/SettingsForm";
 import "./settings.scss";
 
 const Settings = () => {
@@ -9,9 +10,7 @@ const Settings = () => {
       <div className="homeContainer">
         <Navbar />
         <div className="homeForm">
-          <form action="">
-            
-          </form>
+          <SettingsForm/>
         </div>
       </div>
     </div>
