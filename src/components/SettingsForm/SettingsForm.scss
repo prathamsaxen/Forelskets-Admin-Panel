@@ -2,19 +2,20 @@
     width: 800px;
     height: 600px;
     margin-bottom: 90px;
-        .imageWrapper{
-            height: 15%;
+    form{
+            .imageWrapper{
+            height: 10%;
+            // overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             img{
-                border: .5px solid gray;
-                padding: 2px;
-                height: 90%;
+                height: 80px;
                 border-radius: 50%;
             }
-        }
-        form{
+            margin-bottom: 20px;
+            }
+
             border: .5px solid gray;
             width: 100%;
             margin-top: 30px;

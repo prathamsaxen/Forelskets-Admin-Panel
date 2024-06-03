@@ -5,13 +5,13 @@ import "./SettingsForm.scss";
 function SettingsForm() {
   return (
     <div className="SettingsForm">
+      <Form>
       <div className="imageWrapper">
         <img
           src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
           alt=""
         />
       </div>
-      <Form>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formCompanyMail">
             <Form.Label>Company Mail Account</Form.Label>
