@@ -1,17 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Row, Col, Button, InputGroup } from "react-bootstrap";
+import { toast } from "react-toastify";
+import axios from "axios";
 import "./SettingsForm.scss";
 
 function SettingsForm() {
+  const [data, setData] = useState({
+    address: "",
+    googleMapLocation: "",
+    instagram: "",
+    linkedin: "",
+    logo: "url------",
+    pinterest: "",
+    professionalMail: "",
+    professionalPhoneNumber: null,
+    twitter: "",
+  });
+  const getSettings = async () => {
+    try {
+      const status = await axios.get(
+        `${process.env.REACT_APP_API}api/getSetting`
+      );
+      if (status.status === 200) {
+        console.log("Seccuess!");
+        setData(status.data[0]);
+      }
+    } catch (err) {
+      toast.error("Error in fetching settings!");
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getSettings();
+  }, []);
   return (
     <div className="SettingsForm">
       <Form>
-      <div className="imageWrapper">
-        <img
-          src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-          alt=""
-        />
-      </div>
+        <div className="imageWrapper">
+          <img
+            src={data.logo}
+            alt=""
+          />
+        </div>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formCompanyMail">
             <Form.Label>Company Mail Account</Form.Label>
@@ -19,6 +49,7 @@ function SettingsForm() {
               required
               type="email"
               placeholder="Enter company email"
+              value={data.professionalMail}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formCompanyPhoneNumber">
@@ -27,6 +58,7 @@ function SettingsForm() {
               required
               type="tel"
               placeholder="Enter company phone number"
+              value={data.professionalPhoneNumber}
             />
           </Form.Group>
         </Row>
@@ -37,6 +69,7 @@ function SettingsForm() {
               required
               type="text"
               placeholder="Enter company address"
+              value={data.address}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formGoogleMapLocation">
@@ -45,6 +78,7 @@ function SettingsForm() {
               required
               type="text"
               placeholder="Enter Google Map location"
+              value={data.googleMapLocation}
             />
           </Form.Group>
         </Row>
@@ -55,6 +89,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Instagram URL"
+              value={data.instagram}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formTwitterURL">
@@ -63,6 +98,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Twitter URL"
+              value={data.twitter}
             />
           </Form.Group>
         </Row>
@@ -73,6 +109,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter LinkedIn URL"
+              value={data.linkedin}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formPinterestURL">
@@ -81,10 +118,13 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Pinterest URL"
+              value={data.pinterest}
             />
           </Form.Group>
         </Row>
-        <Button type="submit" className="btn-form-submit-settings">Submit form</Button>
+        <Button type="submit" className="btn-form-submit-settings">
+          Submit form
+        </Button>
       </Form>
     </div>
   );
