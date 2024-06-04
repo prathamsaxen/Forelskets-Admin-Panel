@@ -16,17 +16,17 @@ function SettingsForm() {
     professionalPhoneNumber: "",
     twitter: "",
   });
-  const [dataEdit, setDataEdit] = useState(false);
+  const [dataEdit, setDataEdit] = useState(true);
 
   const getSettings = async () => {
     console.log(data);
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_API}api/getSetting`
+        `${process.env.REACT_APP_API}api/getSetting/uniqueIdentifier`
       );
       if (response.status === 200) {
-        console.log("Success!");
-        setData(response.data[0]);
+        // console.log(response.data);
+        setData(response.data);
       }
     } catch (err) {
       toast.error("Error in fetching settings!");
@@ -46,7 +46,10 @@ function SettingsForm() {
       try {
         const response = await axios.put(
           `${process.env.REACT_APP_API}api/setting`,
-          data
+          {
+            ...data,
+            identifier: "uniqueIdentifier",
+          }
         );
         if (response.status === 200) {
           toast.success("Settings Updated Successfully!");
@@ -73,7 +76,7 @@ function SettingsForm() {
               required
               type="email"
               placeholder="Enter company email"
-              value={data.professionalMail}
+              value={data?.professionalMail}
               disabled={dataEdit}
               onChange={(e) =>
                 setData({ ...data, professionalMail: e.target.value })
@@ -86,7 +89,7 @@ function SettingsForm() {
               required
               type="tel"
               placeholder="Enter company phone number"
-              value={data.professionalPhoneNumber}
+              value={data?.professionalPhoneNumber}
               disabled={dataEdit}
               onChange={(e) =>
                 setData({ ...data, professionalPhoneNumber: e.target.value })
@@ -101,7 +104,7 @@ function SettingsForm() {
               required
               type="text"
               placeholder="Enter company address"
-              value={data.address}
+              value={data?.address}
               disabled={dataEdit}
               onChange={(e) => setData({ ...data, address: e.target.value })}
             />
@@ -112,7 +115,7 @@ function SettingsForm() {
               required
               type="text"
               placeholder="Enter Google Map location"
-              value={data.googleMapLocation}
+              value={data?.googleMapLocation}
               disabled={dataEdit}
               onChange={(e) =>
                 setData({ ...data, googleMapLocation: e.target.value })
@@ -127,7 +130,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Instagram URL"
-              value={data.instagram}
+              value={data?.instagram}
               disabled={dataEdit}
               onChange={(e) => setData({ ...data, instagram: e.target.value })}
             />
@@ -138,7 +141,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Twitter URL"
-              value={data.twitter}
+              value={data?.twitter}
               disabled={dataEdit}
               onChange={(e) => setData({ ...data, twitter: e.target.value })}
             />
@@ -151,7 +154,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter LinkedIn URL"
-              value={data.linkedin}
+              value={data?.linkedin}
               disabled={dataEdit}
               onChange={(e) => setData({ ...data, linkedin: e.target.value })}
             />
@@ -162,7 +165,7 @@ function SettingsForm() {
               required
               type="url"
               placeholder="Enter Pinterest URL"
-              value={data.pinterest}
+              value={data?.pinterest}
               disabled={dataEdit}
               onChange={(e) => setData({ ...data, pinterest: e.target.value })}
             />
