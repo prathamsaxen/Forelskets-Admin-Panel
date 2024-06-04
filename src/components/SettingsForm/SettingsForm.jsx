@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Row, Col, Button, InputGroup } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { toast } from "react-toastify";
 import axios from "axios";
 import "./SettingsForm.scss";
@@ -10,37 +10,61 @@ function SettingsForm() {
     googleMapLocation: "",
     instagram: "",
     linkedin: "",
-    logo: "url------",
+    logo: "",
     pinterest: "",
     professionalMail: "",
-    professionalPhoneNumber: null,
+    professionalPhoneNumber: "",
     twitter: "",
   });
+  const [dataEdit, setDataEdit] = useState(false);
+
   const getSettings = async () => {
+    console.log(data);
     try {
-      const status = await axios.get(
+      const response = await axios.get(
         `${process.env.REACT_APP_API}api/getSetting`
       );
-      if (status.status === 200) {
-        console.log("Seccuess!");
-        setData(status.data[0]);
+      if (response.status === 200) {
+        console.log("Success!");
+        setData(response.data[0]);
       }
     } catch (err) {
       toast.error("Error in fetching settings!");
       console.log(err);
     }
   };
+
   useEffect(() => {
     getSettings();
   }, []);
+
+  const updateSettings = async (event) => {
+    event.preventDefault();
+    if (dataEdit) {
+      setDataEdit(false);
+    } else {
+      try {
+        const response = await axios.put(
+          `${process.env.REACT_APP_API}api/setting`,
+          data
+        );
+        if (response.status === 200) {
+          toast.success("Settings Updated Successfully!");
+        }
+      } catch (err) {
+        toast.error("Error in updating settings!");
+        console.error(err);
+      }
+      setDataEdit(true);
+      getSettings();
+    }
+  };
+
   return (
     <div className="SettingsForm">
-      <Form>
+      <Form onSubmit={updateSettings}>
         <div className="imageWrapper">
-          <img
-            src={data.logo}
-            alt=""
-          />
+          <img src={data?.logo} alt="Error in Loading" />
         </div>
         <Row className="mb-3">
           <Form.Group as={Col} md="6" controlId="formCompanyMail">
@@ -50,6 +74,10 @@ function SettingsForm() {
               type="email"
               placeholder="Enter company email"
               value={data.professionalMail}
+              disabled={dataEdit}
+              onChange={(e) =>
+                setData({ ...data, professionalMail: e.target.value })
+              }
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formCompanyPhoneNumber">
@@ -59,6 +87,10 @@ function SettingsForm() {
               type="tel"
               placeholder="Enter company phone number"
               value={data.professionalPhoneNumber}
+              disabled={dataEdit}
+              onChange={(e) =>
+                setData({ ...data, professionalPhoneNumber: e.target.value })
+              }
             />
           </Form.Group>
         </Row>
@@ -70,6 +102,8 @@ function SettingsForm() {
               type="text"
               placeholder="Enter company address"
               value={data.address}
+              disabled={dataEdit}
+              onChange={(e) => setData({ ...data, address: e.target.value })}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formGoogleMapLocation">
@@ -79,6 +113,10 @@ function SettingsForm() {
               type="text"
               placeholder="Enter Google Map location"
               value={data.googleMapLocation}
+              disabled={dataEdit}
+              onChange={(e) =>
+                setData({ ...data, googleMapLocation: e.target.value })
+              }
             />
           </Form.Group>
         </Row>
@@ -90,6 +128,8 @@ function SettingsForm() {
               type="url"
               placeholder="Enter Instagram URL"
               value={data.instagram}
+              disabled={dataEdit}
+              onChange={(e) => setData({ ...data, instagram: e.target.value })}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formTwitterURL">
@@ -99,6 +139,8 @@ function SettingsForm() {
               type="url"
               placeholder="Enter Twitter URL"
               value={data.twitter}
+              disabled={dataEdit}
+              onChange={(e) => setData({ ...data, twitter: e.target.value })}
             />
           </Form.Group>
         </Row>
@@ -110,6 +152,8 @@ function SettingsForm() {
               type="url"
               placeholder="Enter LinkedIn URL"
               value={data.linkedin}
+              disabled={dataEdit}
+              onChange={(e) => setData({ ...data, linkedin: e.target.value })}
             />
           </Form.Group>
           <Form.Group as={Col} md="6" controlId="formPinterestURL">
@@ -119,11 +163,13 @@ function SettingsForm() {
               type="url"
               placeholder="Enter Pinterest URL"
               value={data.pinterest}
+              disabled={dataEdit}
+              onChange={(e) => setData({ ...data, pinterest: e.target.value })}
             />
           </Form.Group>
         </Row>
         <Button type="submit" className="btn-form-submit-settings">
-          Submit form
+          {dataEdit ? "Edit" : "Update Settings"}
         </Button>
       </Form>
     </div>
